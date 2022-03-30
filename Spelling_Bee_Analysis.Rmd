@@ -1,0 +1,33 @@
+---
+title: "Spelling Bee Analysis"
+author: "Miles Ott"
+date: "3/30/2022"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(ggimage)
+SpellingBee <- read_csv("SpellingBee.csv")
+```
+
+```{r}
+model1<-lm(queenbee~genius, data=SpellingBee)
+summary(model1)
+
+
+image = rep("https://www.nytimes.com/games-assets/icons/spotlight/SpellingBee.png",89)
+
+SpellingBee<-cbind(SpellingBee, image)
+
+ggplot(data=SpellingBee, aes(y=queenbee, x=genius))+
+  geom_image(aes(image=image), size=.07)+
+  xlab("Points for Genius")+
+  ylab("Points for Queen Bee")+
+  labs(title = 'Points for Genius vs Points for Queen Bee')+
+  theme_bw()
+  
+```
+
